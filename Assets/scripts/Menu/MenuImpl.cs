@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MenuImpl : MonoBehaviour, Menu
 {
+    public GameObject currentTarget;
     public GameObject spawnPosition;
     public GameObject objectMenu;
     public GameObject[] objectMenuList;
@@ -97,12 +98,10 @@ public class MenuImpl : MonoBehaviour, Menu
         {
             GameObject newObject = Instantiate(objectList[currentPosition], spawnPosition.transform.position, objectMenuList[currentPosition].transform.rotation);
             newObject.SetActive(true);
-
-            print("before " + count + ":"+ numberOfObject[currentPosition]);
+            newObject.GetComponent<Projectiles>().fireAt(currentTarget.transform);
             
             numberOfObject[currentPosition] = count - 1;
 
-            print("after " + count + ":" + numberOfObject[currentPosition]);
             title.text = createTitle(currentPosition);
         }
     }

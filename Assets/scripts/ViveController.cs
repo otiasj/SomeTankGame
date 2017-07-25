@@ -53,12 +53,13 @@ public class ViveController : MonoBehaviour
     private void handleTriggers() {
         if (device.GetPressDown(TRIGGER))
         {
-            gravityGun.grab();
+            //gravityGun.grab();
         }
 
         if (device.GetPressUp(TRIGGER))
         {
-            gravityGun.drop();
+            menu.navigateSelect();
+            // gravityGun.drop();
         }
     }
 
