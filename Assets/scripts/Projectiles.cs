@@ -6,8 +6,10 @@ public class Projectiles : MonoBehaviour
     private Transform target;
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
+    public float delay = 0.5f;
 
     public Transform Projectile;
+    public AudioSource audioSource;
     private Transform myTransform;
 
     void Awake()
@@ -24,7 +26,9 @@ public class Projectiles : MonoBehaviour
     IEnumerator SimulateProjectile()
     {
         // Short delay added before Projectile is thrown
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(delay);
+
+        audioSource.Play();
 
         // Move projectile to the position of throwing object + add some offset if needed.
         Projectile.position = myTransform.position + new Vector3(0, 0.0f, 0);

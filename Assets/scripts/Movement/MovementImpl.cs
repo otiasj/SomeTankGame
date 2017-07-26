@@ -27,7 +27,7 @@ public class MovementImpl : MonoBehaviour, Movement {
     private float lerpTime;
     private Vector3 targetLocation;
     private Vector3 dashStartPosition;
-    private float teleporterHeight;
+    //private float teleporterHeight;
 
     //walking
     private Vector3 movementDirection;
@@ -37,7 +37,7 @@ public class MovementImpl : MonoBehaviour, Movement {
     void Start()
     {
         laser.gameObject.SetActive(false);
-        teleporterHeight = teleporter.transform.position.y;
+        //teleporterHeight = teleporter.transform.position.y;
     }
 
     // Update is called once per frame
