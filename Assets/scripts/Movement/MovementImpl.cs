@@ -89,27 +89,6 @@ public class MovementImpl : MonoBehaviour, Movement {
                 hitpoint.y + yNudgeAmount,
                 hitpoint.z);
         }
-        /*else { //if we do not hit anything, 
-
-			// find the location on ground
-			targetLocation = new Vector3 (transformOrigin.forward.x * laserRange + transformOrigin.position.x,
-                transformOrigin.position.y * laserRange + transformOrigin.position.y,
-                transformOrigin.forward.z * laserRange + transformOrigin.position.z);
-
-			//find the ground point down at laserRange away, by sending a raycast vertically down
-			RaycastHit groundRay;
-			if (Physics.Raycast (targetLocation, -Vector3.up, out groundRay, laserRange, laserMask)) {
-				targetLocation = new Vector3(transformOrigin.forward.x * laserRange + transformOrigin.position.x,
-					groundRay.point.y,
-                    transformOrigin.forward.z * laserRange + transformOrigin.position.z);
-			}
-
-			//laser end point
-			laser.SetPosition (1, transformOrigin.forward * laserRange + transformOrigin.position);
-
-			// the new position
-			teleporter.transform.position = targetLocation + new Vector3 (0, yNudgeAmount, 0);
-		}*/
     }
 
     public void moveForward()

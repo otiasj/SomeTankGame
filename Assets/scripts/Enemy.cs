@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour {
+    public int hitPoints = 100;
     public float speed = 100f;
     public float rotationSpeed = 10;
-    
+    public GameObject explosion;
+
     private Transform target;
     private Transform nextTarget;
 
@@ -17,13 +19,36 @@ public class Enemy : MonoBehaviour {
         nextTarget = Waypoints.points[1];
     }
 
+    public void takeHit(int hit)
+    {
+        Debug.Log("Take Hit " + hit);
+        hitPoints = hitPoints - hit;
+        if (hitPoints <= 0)
+        {
+            Debug.Log("HitPoints " + hitPoints);
+            Invoke("explode", 0.5f);   
+        }
+    }
+
+    private void explode()
+    {
+        Destroy(gameObject, 3);
+        GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy(explosionInstance, 12);//destroy the object after 5seconds
+    }
+
     private void Update()
+    {
+        //move();
+    }
+
+    private void move()
     {
         currentDirection = target.position - transform.position;
         nextTargetDirection = nextTarget.position - transform.position;
 
         transform.Translate(currentDirection.normalized * speed * Time.deltaTime, Space.World);
-        
+
         Quaternion targetRotation = Quaternion.LookRotation(nextTargetDirection);
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 

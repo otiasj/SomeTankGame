@@ -6,30 +6,19 @@ public class Explosion : MonoBehaviour
 {
     public float force;
     public float radius;
-    public float effectsRadius;
 
     public GameObject explosion;
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("AAA");
-        //if (col.gameObject.CompareTag("Floor"))
-       // {
-        
-            triggerExplosionAt(col.transform);
-            //Destroy(this.gameObject);
-       // }
+      triggerExplosionAt(transform);
+      Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("BBB");
-        //if (col.gameObject.CompareTag("Floor"))
-        // {
-
-        triggerExplosionAt(other.transform);
-        //Destroy(this.gameObject);
-        // }
+        triggerExplosionAt(transform);
+        Destroy(this.gameObject);
     }
 
     private void triggerExplosionAt(Transform target)
@@ -43,15 +32,16 @@ public class Explosion : MonoBehaviour
             if (collidedRigidBody != null)
             {
                 collidedRigidBody.AddExplosionForce(force, target.position, radius, .5f, ForceMode.Impulse);
+                Enemy enemy = collidedRigidBody.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.takeHit(25);
+                }
             }
         }
 
-        ParticleSystem[] particleSystems = explosion.GetComponentsInChildren<ParticleSystem>();
-        for (int i = 0; i < particleSystems.Length; i++)
-        {
-            ParticleSystem.ShapeModule shapeModule = particleSystems[i].shape;
-            shapeModule.radius = effectsRadius;
-        }
-        Instantiate(explosion, target.position, Quaternion.identity);
+    
+        GameObject explosionInstance = Instantiate(explosion, target.position, Quaternion.identity);
+        Destroy(explosionInstance, 5);//destroy the object after 5seconds
     }
 }
