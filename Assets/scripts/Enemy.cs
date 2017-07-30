@@ -2,7 +2,7 @@
 
 public class Enemy : MonoBehaviour {
     public int hitPoints = 100;
-    public float speed = 100f;
+    public float speed = 10f;
     public float rotationSpeed = 10;
     public GameObject explosion;
 
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour {
 
     private void explode()
     {
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 1);
         GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(explosionInstance, 12);//destroy the object after 5seconds
     }
