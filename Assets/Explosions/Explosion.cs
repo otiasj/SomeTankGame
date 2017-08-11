@@ -6,19 +6,20 @@ public class Explosion : MonoBehaviour
 {
     public float force;
     public float radius;
+    public int damages = 25;
 
     public GameObject explosion;
 
     void OnCollisionEnter(Collision col)
     {
       triggerExplosionAt(transform);
-      Destroy(this.gameObject);
+      Destroy(this.gameObject); //destroy the rocket
     }
 
     private void OnTriggerEnter(Collider other)
     {
         triggerExplosionAt(transform);
-        Destroy(this.gameObject);
+        Destroy(this.gameObject); //destroy the rocket
     }
 
     private void triggerExplosionAt(Transform target)
@@ -35,7 +36,13 @@ public class Explosion : MonoBehaviour
                 Enemy enemy = collidedRigidBody.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.takeHit(25);
+                    enemy.takeHit(damages);
+                }
+
+                Castle castle = collidedRigidBody.GetComponent<Castle>();
+                if (castle != null)
+                {
+                    castle.takeHit(damages);
                 }
             }
         }

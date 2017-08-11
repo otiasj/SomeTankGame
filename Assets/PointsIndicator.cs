@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PointsIndicator : MonoBehaviour {
     public GameObject titleText;
@@ -9,17 +10,17 @@ public class PointsIndicator : MonoBehaviour {
 
     public void setTitle(string text)
     {
-        titleText.GetComponent<GUIText>().text = text;
+        titleText.GetComponent<Text>().text = text;
     }
 
     public void setColumn1(string text)
     {
-        column1.GetComponent<GUIText>().text = text;
+        column1.GetComponent<Text>().text = text;
     }
 
     public void setColumn2(string text)
     {
-        column2.GetComponent<GUIText>().text = text;
+        column2.GetComponent<Text>().text = text;
     }
 
 

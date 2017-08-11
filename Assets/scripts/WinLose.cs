@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class WinLose : MonoBehaviour {
 
-    public GameObject congratulationText;
+    public GameObject eyeLevelText;
+    public string currentLevel;
     public string nextLevel;
 
-	public void onVictory()
+	public void showGameOver()
     {
-        showCongratulations();
+        eyeLevelText.SetActive(true);
+        eyeLevelText.GetComponent<GUIText>().text = "Your Castle Has Been Destroyed...";
+        Invoke("loadCurrentLevel", 3);
     }
 
     public void showCongratulations()
     {
-        congratulationText.SetActive(true);
+        eyeLevelText.SetActive(true);
+        string winText = "Congratulations! you win!";
         if (nextLevel != null)
         {
             Invoke("loadNextLevel", 3);
+            winText = winText + "\n Loading Next Level";
         }
+
+        eyeLevelText.GetComponent<GUIText>().text = winText;
+    }
+
+    private void loadCurrentLevel()
+    {
+        eyeLevelText.SetActive(false);
+        SteamVR_LoadLevel.Begin(currentLevel);
     }
 
     private void loadNextLevel()
     {
-        congratulationText.SetActive(false);
+        eyeLevelText.SetActive(false);
         SteamVR_LoadLevel.Begin(nextLevel);
     }
 }
