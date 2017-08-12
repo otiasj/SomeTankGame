@@ -2,7 +2,6 @@
 
 public class Enemy : MonoBehaviour {
     
-    
     public GameObject explosion;
     public Castle target;
 
@@ -13,13 +12,21 @@ public class Enemy : MonoBehaviour {
     public void Start()
     {
         int activeUnitIndex = Random.Range(0, enemyObjects.Length);
-        setActiveUnit(activeUnitIndex);
+        initActiveUnit(activeUnitIndex);
+       
     }
 
-    public void setActiveUnit(int index)
+    public void initActiveUnit(int index)
     {
         activeUnit = enemyObjects[index];
         activeUnit.prefab.SetActive(true);
+        initSpeed(activeUnit.speed);
+    }
+
+    private void initSpeed(float speed)
+    {
+        WaypointAgent waypointAgent = GetComponent<WaypointAgent>();
+        waypointAgent.Speed = speed;
     }
 
     public void takeHit(int hit)
