@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour {
-    
+public class Enemy : MonoBehaviour
+{
+
     public GameObject explosion;
-    public Castle target;
+    private Castle target;
 
     public EnemyType[] enemyObjects;
 
@@ -13,7 +14,7 @@ public class Enemy : MonoBehaviour {
     {
         int activeUnitIndex = Random.Range(0, enemyObjects.Length);
         initActiveUnit(activeUnitIndex);
-       
+
     }
 
     public void initActiveUnit(int index)
@@ -29,6 +30,11 @@ public class Enemy : MonoBehaviour {
         waypointAgent.Speed = speed;
     }
 
+    public void setTarget(Castle castle)
+    {
+        this.target = castle;
+    }
+
     public void takeHit(int hit)
     {
         //Debug.Log("Take Hit " + hit);
@@ -36,13 +42,17 @@ public class Enemy : MonoBehaviour {
         if (activeUnit.hitPoints <= 0)
         {
             //Debug.Log("HitPoints " + hitPoints);
-            Invoke("explode", 0.5f);   
+            Invoke("explode", 0.5f);
         }
     }
 
     public void onReachTarget()
     {
-        target.takeHit(activeUnit.damages);
+        if (target != null)
+        {
+            target.takeHit(activeUnit.damages);
+
+        }
     }
 
     private void explode()
@@ -52,5 +62,5 @@ public class Enemy : MonoBehaviour {
         Destroy(explosionInstance, 12);//destroy the explosion object after 12seconds
     }
 
-  
+
 }

@@ -98,6 +98,11 @@ public class WaypointAgent : MonoBehaviour {
                 {
                     if (!m_waypointManager.looping)
                     {
+                        Enemy enemy = GetComponent<Enemy>();
+                        if (enemy != null)
+                        {
+                            enemy.onReachTarget();
+                        }
                         m_waypointManager.RemoveEntity(this);
                         Destroy(gameObject);
                         return;

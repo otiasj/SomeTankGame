@@ -4,6 +4,7 @@ using System.Collections;
 public class AgentSpawner : MonoBehaviour {
 
     public GameObject m_agentPrefab;
+    public Castle target;
     public int m_amountToSpawn;
     protected WaypointManager m_waypointManager;
     public float spawnInterval = 1.25f;
@@ -20,8 +21,13 @@ public class AgentSpawner : MonoBehaviour {
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(spawnInterval);
-
-        m_waypointManager.AddEntity((GameObject)Instantiate(m_agentPrefab, m_spawnPoint.position, m_spawnPoint.rotation));
+        GameObject objectEntity = (GameObject)Instantiate(m_agentPrefab, m_spawnPoint.position, m_spawnPoint.rotation);
+        Enemy enemy = objectEntity.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.setTarget(target);
+        }
+        m_waypointManager.AddEntity(objectEntity);
 
         if (m_spawned++ < m_amountToSpawn - 1 | m_infinite)
             StartCoroutine(Spawn());
