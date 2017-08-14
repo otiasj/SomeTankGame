@@ -7,6 +7,7 @@ public class PointsIndicator : MonoBehaviour {
     public GameObject titleText;
     public GameObject column1;
     public GameObject column2;
+    public GameObject column3;
 
     public void setTitle(string text)
     {
@@ -23,5 +24,8 @@ public class PointsIndicator : MonoBehaviour {
         column2.GetComponent<Text>().text = text;
     }
 
-
+    public void setColumn3(string text)
+    {
+        column3.GetComponent<Text>().text = text;
+    }
 }

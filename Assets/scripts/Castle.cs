@@ -11,14 +11,17 @@ public class Castle : MonoBehaviour {
     public int explosionCount = 10;
     public float explosionRadius = 5;
 
+    private int score;
     private WinLose winLose;
     private PointsIndicator pointsIndicator;
+    private int enemyDestroyedCount = 0;
 
     private void Start()
     {
         this.winLose = GetComponent<WinLose>();
         this.pointsIndicator = GetComponent<PointsIndicator>();
         pointsIndicator.setColumn1("Castle HP: " + castleHealthPoints + "HP");
+        pointsIndicator.setColumn3("Score: " + score);
     }
 
     public void takeHit(int damages)
@@ -32,8 +35,25 @@ public class Castle : MonoBehaviour {
             castleHealthPoints = 0;
             pointsIndicator.setTitle("GAME OVER!");
             Invoke("explode", 0.5f);
+            gameOver();
         }
         pointsIndicator.setColumn1("Castle HP: " + castleHealthPoints + "HP");
+    }
+
+    public void winPoints(int points)
+    {
+        score += points;
+        pointsIndicator.setColumn3("Score: " + score);
+    }
+
+    public void onEnemyDestroyed()
+    {
+        enemyDestroyedCount++;
+    }
+
+    public int getEnemyDestroyedCount()
+    {
+        return enemyDestroyedCount;
     }
 
     private void explode()

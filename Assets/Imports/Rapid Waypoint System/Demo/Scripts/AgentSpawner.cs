@@ -33,4 +33,10 @@ public class AgentSpawner : MonoBehaviour {
             StartCoroutine(Spawn());
     }
 
+
+    public int getSpawnedCount()
+    {
+        return m_spawned;
+    }
+
 }

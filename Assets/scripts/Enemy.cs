@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 
     public GameObject explosion;
     private Castle target;
+    private bool isAlive = true;
 
     public EnemyType[] enemyObjects;
 
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("HitPoints " + hitPoints);
             Invoke("explode", 0.5f);
+            target.winPoints(activeUnit.damages * 100);
         }
     }
 
@@ -50,16 +52,22 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
+            target.onEnemyDestroyed();
             target.takeHit(activeUnit.damages);
-
         }
     }
 
     private void explode()
     {
-        Destroy(gameObject, 1);
-        GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(explosionInstance, 12);//destroy the explosion object after 12seconds
+        if (isAlive)
+        {
+            target.onEnemyDestroyed();
+            isAlive = false;
+
+            GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(explosionInstance, 12);//destroy the explosion object after 12seconds
+            Destroy(gameObject);
+        }
     }
 
 

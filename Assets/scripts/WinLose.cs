@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinLose : MonoBehaviour {
 
     public GameObject eyeLevelText;
+    public GameObject text;
     public string currentLevel;
     public string nextLevel;
 
 	public void showGameOver()
     {
         eyeLevelText.SetActive(true);
-        eyeLevelText.GetComponent<GUIText>().text = "Your Castle Has Been Destroyed...";
-        Invoke("loadCurrentLevel", 3);
+        text.GetComponent<Text>().text = "Your Castle Has Been Destroyed...";
+        Invoke("loadCurrentLevel", 5);
     }
 
     public void showCongratulations()
@@ -21,11 +23,11 @@ public class WinLose : MonoBehaviour {
         string winText = "Congratulations! you win!";
         if (nextLevel != null)
         {
-            Invoke("loadNextLevel", 3);
+            Invoke("loadNextLevel", 5);
             winText = winText + "\n Loading Next Level";
         }
 
-        eyeLevelText.GetComponent<GUIText>().text = winText;
+        text.GetComponent<Text>().text = winText;
     }
 
     private void loadCurrentLevel()
