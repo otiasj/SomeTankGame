@@ -1,2 +1,1 @@
-# SomeTankGame
-Some Tank busting game in VR
+# SomeTankGameSome Tank busting game in VR# Achievements :## Fundamentals- Scale- Animation - Lighting - Physics - Video ## Completeness- Gamification- Diegetic UI## Challenges- Shader
