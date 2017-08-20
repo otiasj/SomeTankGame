@@ -9,6 +9,7 @@ public class WinLose : MonoBehaviour {
     public GameObject text;
     public string currentLevel;
     public string nextLevel;
+    private LevelLoader levelLoader = new LevelLoader();
 
 	public void showGameOver()
     {
@@ -33,12 +34,12 @@ public class WinLose : MonoBehaviour {
     private void loadCurrentLevel()
     {
         eyeLevelText.SetActive(false);
-        SteamVR_LoadLevel.Begin(currentLevel);
+        levelLoader.load(currentLevel);
     }
 
     private void loadNextLevel()
     {
         eyeLevelText.SetActive(false);
-        SteamVR_LoadLevel.Begin(nextLevel);
+        levelLoader.load(nextLevel);
     }
 }
