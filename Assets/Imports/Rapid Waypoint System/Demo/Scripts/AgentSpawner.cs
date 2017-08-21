@@ -3,10 +3,11 @@ using System.Collections;
 
 public class AgentSpawner : MonoBehaviour {
 
+    public int[] units;
     public GameObject m_agentPrefab;
     public Castle target;
-    public int m_amountToSpawn;
-    protected WaypointManager m_waypointManager;
+    private int m_amountToSpawn;
+    public WaypointManager m_waypointManager;
     public float spawnInterval = 1.25f;
     protected int m_spawned = 0;
     public Transform m_spawnPoint;
@@ -14,9 +15,9 @@ public class AgentSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        m_waypointManager = GetComponent<WaypointManager>();
+        m_amountToSpawn = units.Length;
         StartCoroutine(Spawn());
-	}
+    }
 
     IEnumerator Spawn()
     {
@@ -25,6 +26,7 @@ public class AgentSpawner : MonoBehaviour {
         Enemy enemy = objectEntity.GetComponent<Enemy>();
         if (enemy != null)
         {
+            enemy.initActiveUnit(units[m_spawned]);
             enemy.setTarget(target);
         }
         m_waypointManager.AddEntity(objectEntity);

@@ -11,12 +11,12 @@ public class Enemy : MonoBehaviour
 
     private EnemyType activeUnit;
 
-    public void Start()
-    {
-        int activeUnitIndex = Random.Range(0, enemyObjects.Length);
-        initActiveUnit(activeUnitIndex);
+    //public void Start()
+    //{
+    //    int activeUnitIndex = Random.Range(0, enemyObjects.Length);
+    //    initActiveUnit(activeUnitIndex);
 
-    }
+    //}
 
     public void initActiveUnit(int index)
     {

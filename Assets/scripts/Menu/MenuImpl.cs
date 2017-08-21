@@ -10,9 +10,11 @@ public class MenuImpl : MonoBehaviour, Menu
     public GameObject objectMenu;
     public GameObject[] objectMenuList;
     public GameObject[] objectList;
-    public int[] numberOfObject;
+    public int[] maxNumberOfObject;
+    private int[] numberOfObject;
     public string[] titles;
     public Text title;
+    public float[] respawnSpeed;
 
     private int currentPosition = 0;
 
@@ -24,36 +26,49 @@ public class MenuImpl : MonoBehaviour, Menu
     public void Start()
     {
         menuPositionXOffset = objectMenu.transform.localPosition.x;
+        
+
+        numberOfObject = new int[maxNumberOfObject.Length];
+        for (int i = 0; i < maxNumberOfObject.Length; i++)
+        {
+            numberOfObject[i] = maxNumberOfObject[i];
+        }
+
         title.text = createTitle(currentPosition);
         title.enabled = false;
     }
 
     public void Update()
     {
-      moveMenu();
+        moveMenu();
     }
 
-    public void enable() {
+    public void enable()
+    {
         //Debug.Log("Menu enabled");
         objectMenu.SetActive(true);
         title.enabled = true;
     }
 
-    public void disable() {
+    public void disable()
+    {
         //Debug.Log("Menu disabled");
         objectMenu.SetActive(false);
         title.enabled = false;
     }
 
-    public void navigateUp() {
+    public void navigateUp()
+    {
         //Debug.Log("Menu up");
     }
 
-    public void navigateDown() {
+    public void navigateDown()
+    {
         //Debug.Log("Menu down");
     }
 
-    public void navigateLeft() {
+    public void navigateLeft()
+    {
         //Debug.Log("Menu left");
         if (!isMovingRight)
         {
@@ -71,7 +86,8 @@ public class MenuImpl : MonoBehaviour, Menu
         title.text = createTitle(currentPosition);
     }
 
-    public void navigateRight() {
+    public void navigateRight()
+    {
         //Debug.Log("Menu right");
         if (!isMovingLeft)
         {
@@ -89,7 +105,8 @@ public class MenuImpl : MonoBehaviour, Menu
         title.text = createTitle(currentPosition);
     }
 
-    public void navigateSelect() {
+    public void navigateSelect()
+    {
         //Debug.Log("Menu selected " + currentPosition);
 
         //Spawn a new object instance
@@ -99,10 +116,11 @@ public class MenuImpl : MonoBehaviour, Menu
             GameObject newObject = Instantiate(objectList[currentPosition], spawnPosition.transform.position, objectMenuList[currentPosition].transform.rotation);
             newObject.SetActive(true);
             newObject.GetComponent<Projectiles>().FireAt(currentTarget);
-            
-            numberOfObject[currentPosition] = count - 1;
 
+            numberOfObject[currentPosition] = count - 1;
             title.text = createTitle(currentPosition);
+
+            StartCoroutine(respawnObject(respawnSpeed[currentPosition], currentPosition));
         }
     }
 
@@ -115,7 +133,8 @@ public class MenuImpl : MonoBehaviour, Menu
             {
                 isMovingLeft = false;
             }
-        } else if (isMovingRight)
+        }
+        else if (isMovingRight)
         {
             objectMenu.transform.Translate(Vector2.right * menuSpeed * Time.deltaTime);
             if (menuReachedNextPosition(objectMenu.transform.localPosition.x))
@@ -124,16 +143,19 @@ public class MenuImpl : MonoBehaviour, Menu
             }
         }
     }
-    
+
     //Return true if the menuObject as reached the next position in the menu
     private bool menuReachedNextPosition(float xPosition)
     {
         float currentMenuObjectPosition = -(xPosition - menuPositionXOffset);
         float stopAt = currentPosition * menuPositionXOffset;
         //Debug.Log("Menu " + currentMenuObjectPosition + " " + currentPosition + " " + stopAt);
-        if (isMovingLeft) {
+        if (isMovingLeft)
+        {
             return (currentMenuObjectPosition >= stopAt);
-        } else {
+        }
+        else
+        {
             return (currentMenuObjectPosition <= stopAt);
         }
     }
@@ -141,5 +163,21 @@ public class MenuImpl : MonoBehaviour, Menu
     private string createTitle(int currentIndex)
     {
         return titles[currentIndex] + "\nx" + numberOfObject[currentIndex];
+    }
+
+    IEnumerator respawnObject(float delay, int position)
+    {
+        Debug.Log("Spawn Wait " + delay + " " + position);
+        yield return new WaitForSeconds(delay);
+        if (numberOfObject[position] < maxNumberOfObject[position])
+        {
+            Debug.Log("Spawn update " + numberOfObject[position] + " " + numberOfObject[position]);
+            numberOfObject[position] = numberOfObject[position] + 1;
+            if (position == currentPosition)
+            {
+                title.text = createTitle(currentPosition);
+            }
+        }
+        //yield return null;
     }
 }

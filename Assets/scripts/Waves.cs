@@ -7,6 +7,7 @@ public class Waves : MonoBehaviour {
     public WaypointManager waypointManager;
     public AgentSpawner agentSpawner;
     public Castle castle;
+    public LevelLoader level;
 
     private WinLose winLose;
     private PointsIndicator pointsIndicator;
@@ -19,7 +20,7 @@ public class Waves : MonoBehaviour {
         this.pointsIndicator = GetComponent<PointsIndicator>();
 
 
-        pointsIndicator.setTitle("Level 1");
+        pointsIndicator.setTitle(level.currentLevel);
 
         updateEnemyCount();
     }
@@ -31,18 +32,18 @@ public class Waves : MonoBehaviour {
 
     private void updateEnemyCount()
     {
-        int enemyLeft = agentSpawner.m_amountToSpawn - castle.getEnemyDestroyedCount();
+        int enemyLeft = agentSpawner.units.Length - castle.getEnemyDestroyedCount();
         if (enemyLeft != enemyCount)
         {
-            Debug.Log("getSpawnedCount! " + agentSpawner.getSpawnedCount() + " m_amountToSpawn " + agentSpawner.m_amountToSpawn + " AgentQuantity " + castle.getEnemyDestroyedCount());
+            //Debug.Log("getSpawnedCount! " + agentSpawner.getSpawnedCount() + " m_amountToSpawn " + agentSpawner.m_amountToSpawn + " AgentQuantity " + castle.getEnemyDestroyedCount());
             
             pointsIndicator.setColumn2("Enemy Left: " + enemyLeft);
             enemyCount = enemyLeft;
 
-            if (enemyLeft == 0)
+            if ((enemyLeft == 0) && (castle.castleHealthPoints > 0))
             {
                 //WON!
-                Debug.Log("WON! ");
+                //Debug.Log("WON! ");
                 winLose.showCongratulations();
             }
         }

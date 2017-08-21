@@ -8,6 +8,7 @@ public class WinLose : MonoBehaviour {
     public GameObject eyeLevelText;
     public GameObject text;
     public LevelLoader levelLoader;
+    public AudioSource victorySound;
 
 	public void showGameOver()
     {
@@ -27,6 +28,7 @@ public class WinLose : MonoBehaviour {
         }
 
         text.GetComponent<Text>().text = winText;
+        victorySound.Play();
     }
 
     private void loadCurrentLevel()
