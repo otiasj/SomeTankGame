@@ -7,9 +7,7 @@ public class WinLose : MonoBehaviour {
 
     public GameObject eyeLevelText;
     public GameObject text;
-    public string currentLevel;
-    public string nextLevel;
-    private LevelLoader levelLoader = new LevelLoader();
+    public LevelLoader levelLoader;
 
 	public void showGameOver()
     {
@@ -22,7 +20,7 @@ public class WinLose : MonoBehaviour {
     {
         eyeLevelText.SetActive(true);
         string winText = "Congratulations! you win!";
-        if (nextLevel != null)
+        if (levelLoader.nextLevel != null)
         {
             Invoke("loadNextLevel", 5);
             winText = winText + "\n Loading Next Level";
@@ -34,12 +32,12 @@ public class WinLose : MonoBehaviour {
     private void loadCurrentLevel()
     {
         eyeLevelText.SetActive(false);
-        levelLoader.load(currentLevel);
+        levelLoader.loadCurrentLevel();
     }
 
     private void loadNextLevel()
     {
         eyeLevelText.SetActive(false);
-        levelLoader.load(nextLevel);
+        levelLoader.loadNextLevel();
     }
 }

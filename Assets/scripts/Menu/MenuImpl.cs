@@ -98,7 +98,7 @@ public class MenuImpl : MonoBehaviour, Menu
         {
             GameObject newObject = Instantiate(objectList[currentPosition], spawnPosition.transform.position, objectMenuList[currentPosition].transform.rotation);
             newObject.SetActive(true);
-            newObject.GetComponent<Projectiles>().fireAt(currentTarget.transform);
+            newObject.GetComponent<Projectiles>().FireAt(currentTarget);
             
             numberOfObject[currentPosition] = count - 1;
 

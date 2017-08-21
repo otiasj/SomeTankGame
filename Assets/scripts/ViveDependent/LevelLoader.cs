@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour, OnClickListener
 {
-    public string levelToLoad;
-
-    public void load()
+    public string currentLevel;
+    public string nextLevel;
+  
+    public void loadCurrentLevel()
     {
-        load(levelToLoad);
+        load(currentLevel);
+    }
+
+    public void loadNextLevel()
+    {
+        load(nextLevel);
     }
 
     public void load(string nextLevel)
@@ -19,6 +25,6 @@ public class LevelLoader : MonoBehaviour, OnClickListener
 
     public void onClick()
     {
-        load();
+        load(nextLevel);
     }
 }

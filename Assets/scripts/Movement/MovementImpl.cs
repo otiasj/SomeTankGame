@@ -23,10 +23,10 @@ public class MovementImpl : MonoBehaviour, Movement {
     public float movementSpeed = 4f;
 
     //teleportation or dashing
-    private bool isDashing;
-    private float lerpTime;
+    //private bool isDashing;
+    //private float lerpTime;
     private Vector3 targetLocation;
-    private Vector3 dashStartPosition;
+    //private Vector3 dashStartPosition;
     //private float teleporterHeight;
 
     //walking
@@ -43,33 +43,33 @@ public class MovementImpl : MonoBehaviour, Movement {
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
-        {
-            updateDashingPosition();
-        }
+        //if (isDashing)
+        //{
+        //    updateDashingPosition();
+        //}
     }
 
-    private void updateDashingPosition()
-    {
-       //Debug.Log("Start Position " + dashStartPosition + " dashing " + lerpTime + "->" + targetLocation);
-        lerpTime += 1 * dashSpeed;
-        player.transform.position = Vector3.Lerp(dashStartPosition, targetLocation, lerpTime);
-        if (lerpTime >= 1)
-        {
-            player.transform.position = targetLocation;
-            isDashing = false;
-            lerpTime = 0;
-            //Debug.Log("End Position " + player.transform.position + "->" + targetLocation);
-        }
-    }
+    //private void updateDashingPosition()
+    //{
+    //   //Debug.Log("Start Position " + dashStartPosition + " dashing " + lerpTime + "->" + targetLocation);
+    //    lerpTime += 1 * dashSpeed;
+    //    player.transform.position = Vector3.Lerp(dashStartPosition, targetLocation, lerpTime);
+    //    if (lerpTime >= 1)
+    //    {
+    //        player.transform.position = targetLocation;
+    //        isDashing = false;
+    //        lerpTime = 0;
+    //        //Debug.Log("End Position " + player.transform.position + "->" + targetLocation);
+    //    }
+    //}
 
     //InputController Implementation
     public void aimFrom(Transform transformOrigin)
     {
-        if (isDashing)
-        {
-            return;
-        }
+        //if (isDashing)
+        //{
+        //    return;
+        //}
         
         //set the laser origin location
         laser.SetPosition(0, transformOrigin.position);
