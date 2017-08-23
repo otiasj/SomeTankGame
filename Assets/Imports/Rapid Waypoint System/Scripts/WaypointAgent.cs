@@ -13,7 +13,7 @@ public class WaypointAgent : MonoBehaviour {
     [HideInInspector] public Vector3 currentNodeTarget = Vector3.zero;
 	[HideInInspector] public bool waypointUpdatingEntity = false;
 
-	protected float speed = 10;
+	protected float speed = 3;
     protected Vector3 directionVector = new Vector3(0,1,0);
     protected float m_nodeProximityDistance = 0.1f;
     protected float m_slerpRotationSpeed = 0.1f;
@@ -29,7 +29,7 @@ public class WaypointAgent : MonoBehaviour {
 
     public virtual void Start()
     {
-        speed = Random.Range(minAgentSpeed, maxAgentSpeed);
+       // speed = Random.Range(minAgentSpeed, maxAgentSpeed);
     }
 
     public virtual void Update()
@@ -110,7 +110,7 @@ public class WaypointAgent : MonoBehaviour {
                     else
                         currentIndex = 0;
                 }
-
+                Debug.Log("speed=" + speed);
                 // Get a position high enough that the agent wont clip the terrain
                 // (NOTE: The pivot point must be in the center)
                 Vector3 targetPosition = new Vector3(((Random.insideUnitSphere.x * 2) * m_nodeProximityDistance),

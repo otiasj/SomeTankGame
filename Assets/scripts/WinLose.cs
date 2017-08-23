@@ -9,8 +9,9 @@ public class WinLose : MonoBehaviour {
     public GameObject text;
     public LevelLoader levelLoader;
     public AudioSource victorySound;
+    public AudioSource ambiantSound;
 
-	public void showGameOver()
+    public void showGameOver()
     {
         eyeLevelText.SetActive(true);
         text.GetComponent<Text>().text = "Your Castle Has Been Destroyed...";
@@ -28,6 +29,7 @@ public class WinLose : MonoBehaviour {
         }
 
         text.GetComponent<Text>().text = winText;
+        ambiantSound.Stop();
         victorySound.Play();
     }
 
