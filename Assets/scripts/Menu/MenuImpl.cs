@@ -167,11 +167,11 @@ public class MenuImpl : MonoBehaviour, Menu
 
     IEnumerator respawnObject(float delay, int position)
     {
-        Debug.Log("Spawn Wait " + delay + " " + position);
+        //Debug.Log("Spawn Wait " + delay + " " + position);
         yield return new WaitForSeconds(delay);
         if (numberOfObject[position] < maxNumberOfObject[position])
         {
-            Debug.Log("Spawn update " + numberOfObject[position] + " " + numberOfObject[position]);
+            //Debug.Log("Spawn update " + numberOfObject[position] + " " + numberOfObject[position]);
             numberOfObject[position] = numberOfObject[position] + 1;
             if (position == currentPosition)
             {

@@ -110,21 +110,18 @@ public class WaypointAgent : MonoBehaviour {
                     else
                         currentIndex = 0;
                 }
-                Debug.Log("speed=" + speed);
+                //Debug.Log("speed=" + speed);
                 // Get a position high enough that the agent wont clip the terrain
                 // (NOTE: The pivot point must be in the center)
                 Vector3 targetPosition = new Vector3(((Random.insideUnitSphere.x * 2) * m_nodeProximityDistance),
                                                         1.2f, //0 + (GetComponent<Collider>().bounds.extents.magnitude) / 2 + 0.5f,
                                                         ((Random.insideUnitSphere.z * 2) * m_nodeProximityDistance));
 
-
                 currentNodeTarget = targetPosition + m_waypointManager.GetNodePosition(currentIndex);
-                
             }
         }
         else
         {
-
             DirectionVector = (currentTarget.transform.position - transform.position).normalized;
 
             transform.Translate(DirectionVector * Time.deltaTime * speed, Space.World);

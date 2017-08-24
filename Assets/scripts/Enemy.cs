@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("HitPoints " + hitPoints);
             Invoke("explode", 0.5f);
-            target.winPoints(activeUnit.damages * 100);
+            target.onEnemyHit();
         }
     }
 
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
     {
         if (isAlive)
         {
-            target.onEnemyDestroyed();
+            target.onEnemyKilled();
             isAlive = false;
 
             GameObject explosionInstance = Instantiate(explosion, transform.position, Quaternion.identity);

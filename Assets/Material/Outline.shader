@@ -29,8 +29,9 @@
 	v2f vert(appdata input)
 	{
 		input.vertex.xyz *= _OutlineWidth; // Multiply each vertex by the width on the outline direction
-
+		
 		v2f output;
+		UNITY_INITIALIZE_OUTPUT(v2f, output);
 		output.pos = UnityObjectToClipPos(input.vertex);
 		return output;
 	}

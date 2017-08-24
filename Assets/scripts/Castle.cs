@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Castle : MonoBehaviour {
-    
+
     public int castleHealthPoints = 100;
     public GameObject explosion;
 
     //explosion of the castle
     public int explosionCount = 10;
     public float explosionRadius = 5;
-
-    private int score;
+    
     private WinLose winLose;
     private PointsIndicator pointsIndicator;
+    private int enemyHit = 0;
+    private int enemyKilled = 0;
     private int enemyDestroyedCount = 0;
 
     private void Start()
@@ -21,7 +22,6 @@ public class Castle : MonoBehaviour {
         this.winLose = GetComponent<WinLose>();
         this.pointsIndicator = GetComponent<PointsIndicator>();
         pointsIndicator.setColumn1("Castle HP: " + castleHealthPoints + "HP");
-        pointsIndicator.setColumn3("Score: " + score);
     }
 
     public void takeHit(int damages)
@@ -40,15 +40,29 @@ public class Castle : MonoBehaviour {
         pointsIndicator.setColumn1("Castle HP: " + castleHealthPoints + "HP");
     }
 
-    public void winPoints(int points)
+    public void onEnemyHit()
     {
-        score += points;
-        pointsIndicator.setColumn3("Score: " + score);
+        enemyHit++;
+    }
+
+    public void onEnemyKilled()
+    {
+        enemyKilled++;
     }
 
     public void onEnemyDestroyed()
     {
         enemyDestroyedCount++;
+    }
+
+    public int getEnemyKilled()
+    {
+        return enemyKilled;
+    }
+
+    public int getEnemyHit()
+    {
+        return enemyHit;
     }
 
     public int getEnemyDestroyedCount()

@@ -22,10 +22,14 @@ public class WinLose : MonoBehaviour {
     {
         eyeLevelText.SetActive(true);
         string winText = "Congratulations! you win!";
-        if (levelLoader.nextLevel != null)
+        if (levelLoader.nextLevel != null && levelLoader.nextLevel.Length > 0)
         {
             Invoke("loadNextLevel", 5);
             winText = winText + "\n Loading Next Level";
+        } else
+        {
+            winText = winText + "\n You have beat the game with a\nscore of "+ ScenePersistant.Instance.totalScore;
+            Invoke("Reset", 15);
         }
 
         text.GetComponent<Text>().text = winText;
@@ -43,5 +47,12 @@ public class WinLose : MonoBehaviour {
     {
         eyeLevelText.SetActive(false);
         levelLoader.loadNextLevel();
+    }
+
+    private void Reset()
+    {
+        ScenePersistant.Instance.totalScore = 0;
+        levelLoader.nextLevel = "intro";
+        loadNextLevel();
     }
 }
